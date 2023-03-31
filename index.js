@@ -9,9 +9,11 @@ const COLORS = {
     'masterKamiIsland': '#c0504f',
 }
 
+let collectedDragonBalls = 0;
+
 const WIDTH = HEIGHT = 840;
 
-const map = [
+let map = [
     ["grass", "grass", "grass", "grass", "grass", "grass", "grass", "mountain", "grass", "mountain", "grass", "mountain", "grass", "mountain", "grass", "grass", "grass", "grass", "grass", "water", "water", "water", "water", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "grass", "mountain", "grass", "mountain", "mountain", "mountain", "mountain", "mountain", "grass", "grass", "grass", "grass"],
     ["mountain", "grass", "mountain", "mountain", "mountain", "mountain", "grass", "grass", "grass", "grass", "grass", "mountain", "grass", "mountain", "grass", "mountain", "mountain", "mountain", "mountain", "water", "water", "water", "water", "grass", "grass", "mountain", "mountain", "mountain", "mountain", "grass", "grass", "mountain", "grass", "grass", "grass", "grass", "grass", "mountain", "grass", "mountain", "mountain", "mountain"],
     ["grass", "grass", "grass", "grass", "grass", "grass", "grass", "mountain", "mountain", "mountain", "mountain", "mountain", "grass", "mountain", "grass", "grass", "grass", "grass", "water", "water", "water", "water", "water", "water", "grass", "grass", "grass", "grass", "mountain", "grass", "grass", "mountain", "grass", "mountain", "mountain", "mountain", "grass", "mountain", "grass", "mountain", "mountain", "mountain"],
@@ -67,42 +69,42 @@ const dragonBalls = [
     {
         'coordinates': {
             x: 5,
-            y: 1,
-        },
-        'collected': false,
-    },
-    {
-        'coordinates': {
-            x: 4,
-            y: 2,
-        },
-        'collected': false,
-    },
-    {
-        'coordinates': {
-            x: 3,
-            y: 3,
-        },
-        'collected': false,
-    },
-    {
-        'coordinates': {
-            x: 2,
             y: 4,
         },
         'collected': false,
     },
     {
         'coordinates': {
-            x: 1,
+            x: 39,
+            y: 3,
+        },
+        'collected': false,
+    },
+    {
+        'coordinates': {
+            x: 27,
             y: 5,
         },
         'collected': false,
     },
     {
         'coordinates': {
-            x: 0,
-            y: 6,
+            x: 25,
+            y: 12,
+        },
+        'collected': false,
+    },
+    {
+        'coordinates': {
+            x: 3,
+            y: 10,
+        },
+        'collected': false,
+    },
+    {
+        'coordinates': {
+            x: 32,
+            y: 9,
         },
         'collected': false,
     },
@@ -110,8 +112,8 @@ const dragonBalls = [
 
 const masterKamiIsland = {
     coordinates: {
-        x: 19,
-        y: 19,
+        x: 0,
+        y: 0,
     }
 }
 
@@ -130,8 +132,8 @@ const goku = {
 }
 
 const dragonRadar = {
-    x: masterKamiIsland.coordinates.x -3,
-    y: masterKamiIsland.coordinates.y -3,
+    x: masterKamiIsland.coordinates.x - 3,
+    y: masterKamiIsland.coordinates.y - 3,
     vx: 0.5,
     vy: 0.5,
     forward: true,
@@ -148,6 +150,10 @@ function setup() {
 }
 
 function draw() {
+	if (collectedDragonBalls >= 7) {
+		noLoop();
+		}
+	
     for (let x = 0; x < map.length; x++) {
         for (let y = 0; y < map[x].length; y++) {
             fill(COLORS[map[x][y]]);
@@ -179,6 +185,7 @@ function draw() {
 
             if (Math.round(goku.x * 20) === x * 20 && Math.round(goku.y * 20) === y * 20) {
                 dragonBall.collected = true;
+                collectedDragonBalls++;
             }
         }
     });
