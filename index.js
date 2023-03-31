@@ -118,8 +118,8 @@ const masterKamiIsland = {
 const goku = {
     x: masterKamiIsland.coordinates.x,
     y: masterKamiIsland.coordinates.y,
-    vx: .10,
-    vy: .10,
+    vx: 0.5,
+    vy: 0.5,
     forward: true,
     return: false,
     draw() {
@@ -132,8 +132,8 @@ const goku = {
 const dragonRadar = {
     x: masterKamiIsland.coordinates.x -3,
     y: masterKamiIsland.coordinates.y -3,
-    vx: .10,
-    vy: .10,
+    vx: 0.5,
+    vy: 0.5,
     forward: true,
     draw() {
         fill(COLORS['dragonRadar'])
@@ -184,14 +184,14 @@ function draw() {
     });
 
     if (goku.forward) {
-        goku.x += .10;
-        dragonRadar.x += .10;
+        goku.x += goku.vx;
+        dragonRadar.x += dragonRadar.vx;
     } else {
-        goku.x -= .10;
-        dragonRadar.x -= .10;
+        goku.x -= goku.vx;
+        dragonRadar.x -= dragonRadar.vx;
     }
 
-    if (goku.x + .10 > (WIDTH / 20) - 1) {
+    if (goku.x + goku.vx > (WIDTH / 20) - 1) {
         if (goku.y >= 41 || goku.return) {
             goku.y -= 1;
             goku.return = true;
@@ -204,7 +204,7 @@ function draw() {
         goku.forward = false;
     }
 
-    if (!goku.forward && goku.x - .10 < 0) {
+    if (!goku.forward && goku.x - goku.vx < 0) {
         if (goku.return) {
             goku.y -= 1;
             dragonRadar.y -= 1;
